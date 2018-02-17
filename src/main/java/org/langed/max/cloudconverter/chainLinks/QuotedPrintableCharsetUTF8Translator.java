@@ -1,8 +1,6 @@
 package org.langed.max.cloudconverter.chainLinks;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.langed.max.cloudconverter.Utils;
-import org.langed.max.cloudconverter.chainLinks.ChainLink;
 
 import java.io.*;
 import java.util.Arrays;
@@ -34,7 +32,8 @@ public class QuotedPrintableCharsetUTF8Translator extends ChainLink {
             for (String line : in) {
 
                 byte[] bytes = line.getBytes();
-                byte[] resultBytes = new byte[0];
+                byte[] resultBytes = new byte[bytes.length];
+                int bytesCount = 0;
 
                 for (byte current : bytes) {
 
@@ -49,19 +48,22 @@ public class QuotedPrintableCharsetUTF8Translator extends ChainLink {
 
                             String letter = translate(parts);
                             byte[] let = letter.getBytes();
-                            resultBytes = ArrayUtils.addAll(resultBytes, let);
+
+                            Utils.addByteArray(resultBytes, let, bytesCount);
+                            bytesCount += let.length;
+
                             got = 0;
                             utfSymbol = false;
 
                         }
                     } else {
-                        resultBytes = ArrayUtils.add(resultBytes, current);
+                        resultBytes[bytesCount++] = current;
                     }
 
                 }
 
 
-                translatedContents.add(new String(resultBytes));
+                translatedContents.add(new String(Utils.truncate(resultBytes, bytesCount)));
             }
 
             return Utils.flushToStringAray(translatedContents);

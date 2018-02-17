@@ -1,7 +1,5 @@
 package org.langed.max.cloudconverter;
 
-//import com.sun.istack.internal.NotNull;
-
 import org.langed.max.cloudconverter.chainLinks.ChainLink;
 
 import java.io.BufferedReader;

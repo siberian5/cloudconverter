@@ -28,6 +28,8 @@ public class Convert {
 
         DirExplorer.exploreFiles(in_folder, chain);
 
+        System.out.println("see result in: " + out_folder);
+
     }
 }
 

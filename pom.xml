@@ -16,7 +16,6 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -24,40 +23,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-
-<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.7</version>
-    </dependency>
-
-
-
   </dependencies>
-
 
   <build>
     <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy-dependencies</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                        <overWriteReleases>false</overWriteReleases>
-                        <overWriteSnapshots>false</overWriteSnapshots>
-                        <overWriteIfNewer>true</overWriteIfNewer>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
@@ -65,8 +34,6 @@
             <configuration>
                 <archive>
                     <manifest>
-                       <addClasspath>true</addClasspath>
-                       <classpathPrefix>lib/</classpathPrefix>
                        <mainClass>org.langed.max.cloudconverter.Convert</mainClass>
                     </manifest>
                 </archive>

@@ -2,7 +2,6 @@ package org.langed.max.cloudconverter.chainLinks;
 
 import org.langed.max.cloudconverter.Utils;
 
-import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.regex.Matcher;

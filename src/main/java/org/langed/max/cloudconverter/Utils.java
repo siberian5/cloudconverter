@@ -1,7 +1,5 @@
 package org.langed.max.cloudconverter;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -30,5 +28,29 @@ public class Utils {
 
         return strings;
     }
+
+
+    static public void addByteArray(byte[] target, byte[] source, int startIndex) {
+        for (int i = 0; i < source.length; i++) {
+            target[i+startIndex] = source[i];
+        }
+    }
+
+    static public byte[] truncate(byte[] source, int volume) {
+        byte[] result = new byte[volume];
+        for (int i = 0; i < volume; i++) {
+            result[i] = source[i];
+        }
+        return result;
+    }
+
+//    public static void main(String[] args) {
+//        byte[] arrA = {1,2,3,4};
+//        byte[] arrB = {5,6};
+//
+//        addByteArray(arrA, arrB , 1);
+//
+//        System.out.println(arrA);
+//    }
 
 }
