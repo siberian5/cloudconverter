@@ -22,8 +22,9 @@ public class Convert {
         ChainLink chain = new SawnStringsJoiner(
                                 new EncodingQuotedPrintableCharsetUTF8Filter(
                                         new QuotedPrintableCharsetUTF8Translator(
-                                                new Combiner(out_folder, null)
-                      )));
+                                                new CVard21to30Updater(
+                                                        new JoinerTerminator(out_folder)
+                      ))));
 
         DirExplorer.exploreFiles(in_folder, chain);
 

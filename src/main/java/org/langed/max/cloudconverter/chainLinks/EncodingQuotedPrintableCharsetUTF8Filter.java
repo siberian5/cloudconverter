@@ -1,9 +1,12 @@
 package org.langed.max.cloudconverter.chainLinks;
 
+import org.langed.max.cloudconverter.Utils;
 import org.langed.max.cloudconverter.chainLinks.ChainLink;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +17,7 @@ public class EncodingQuotedPrintableCharsetUTF8Filter extends ChainLink {
 
     public static final Pattern PATTERN = Pattern.compile(";ENCODING=QUOTED-PRINTABLE;CHARSET=utf-8");
     public static final String EMPTY = "";
+    private final Queue<String> filteredContents = new LinkedList<>();
 
 
     public EncodingQuotedPrintableCharsetUTF8Filter(ChainLink next) {
@@ -21,20 +25,14 @@ public class EncodingQuotedPrintableCharsetUTF8Filter extends ChainLink {
     }
 
 
-    public void process(String[] in) {
-
-        List<String> filteredContents = new ArrayList<>(in.length);
+    public String[] process(String[] in) {
 
         for (String line : in) {
             filteredContents.add(filter(line));
         }
         System.out.println("\t\t\tcharset headings deleted");
 
-
-        String[] strings = new String[filteredContents.size()];
-        strings = filteredContents.toArray(strings);
-
-        next.process(strings);
+        return Utils.flushToStringAray(filteredContents);
 
     }
 

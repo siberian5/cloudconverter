@@ -1,11 +1,8 @@
 package org.langed.max.cloudconverter.chainLinks;
 
-import org.langed.max.cloudconverter.chainLinks.ChainLink;
+import org.langed.max.cloudconverter.Utils;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -13,72 +10,30 @@ import java.util.LinkedList;
  */
 public class SawnStringsJoiner extends ChainLink {
 
+    public static final String EQ = "=";
+
     public SawnStringsJoiner(ChainLink next) {
         super(next);
     }
 
+    private final Deque<String> deque = new LinkedList<>();
 
-    /**
-     * Публичный метод выполняет работу поэтапно:
-     *      - сперва загоняет байты в очередь, pushAndFilter(c),
-     *          -- попутно просеивая их
-     *      - затем списывает очередь на диск.
-     * @param in
-     */
-    public void process(String[] in) {
+    public String[] process(String[] in) {
 
-        next.process(in);
-
-//        System.out.print("Cleaning "  + in.getName());
-//
-//        File out = new File(outFolderName + in.getName());
-//
-//        try (FileInputStream fis = new FileInputStream(in);
-//            FileOutputStream fos = new FileOutputStream(out)) {
-//
-//            int c;      // считываемый байт.
-//            while ((c = fis.read()) != -1) {
-//                pushAndFilter(c);
-//            }
-//
-//            writeFiltered(fos);
-//        }
-//        catch (IOException ioe) {
-//            ioe.printStackTrace();
-//        }
-//
-//        System.out.println("  DONE!");
-    }
-
-
-
-
-    private Deque<Integer> deque = new LinkedList<>();
-    private void pushAndFilter(int chr) {
-
-        if (10==chr) {
-
-            if (13==deque.peekLast()){
-
-                deque.pollLast();
-
-                if (61==deque.peekLast()) {
-                    deque.pollLast();
+        for (String line : in) {
+            if (deque.isEmpty()) {
+                deque.addLast(line);
+            } else {
+                if (deque.peekLast().endsWith(EQ)) {
+                    String prevLine = deque.pollLast();
+                    String combinedLine = prevLine.substring(0, prevLine.length() - 1) + line;
+                    deque.addLast(combinedLine);
+                } else {
+                    deque.addLast(line);
                 }
-                else deque.addLast(chr);
-
             }
-            else deque.addLast(chr);
-
         }
-        else deque.addLast(chr);
 
-    }
-
-    private void writeFiltered(FileOutputStream fos) throws IOException {
-        for (Iterator<Integer> iter = deque.iterator(); iter.hasNext();) {
-            fos.write(iter.next());
-        }
-        deque.clear();
+        return Utils.flushToStringAray(deque);
     }
 }

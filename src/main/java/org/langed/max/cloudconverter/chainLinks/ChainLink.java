@@ -11,5 +11,10 @@ public abstract class ChainLink {
         this.next = next;
     }
 
-    abstract public void process(String[] chunk);
+    public void doChain(String[] chunk) {
+        String[] nextChunk = process(chunk);
+        if(null!=next) next.doChain(nextChunk);
+    }
+
+    abstract public String[] process(String[] chunk);
 }

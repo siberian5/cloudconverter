@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by max on 08.02.18.
@@ -22,7 +22,7 @@ public class DirExplorer {
         for (File file : dir.listFiles()) {
             if (file.isFile())  {
                 System.out.println("reading : "+file.getName());
-                fp.process(readContents(file));
+                fp.doChain(readContents(file));
                 System.out.println("          " + file.getName() + " done.\n\n");
                 filesDone++;
 
@@ -34,7 +34,7 @@ public class DirExplorer {
     private static String[] readContents(File file) {
 
 
-        List<String> fileContents = new LinkedList<>();
+        Queue<String> fileContents = new LinkedList<>();
 
         try (BufferedReader vCardStrings = new BufferedReader( new FileReader(file))) {
 
@@ -48,10 +48,7 @@ public class DirExplorer {
             ioe.printStackTrace();
         }
 
-        String[] strings = new String[fileContents.size()];
-        strings = fileContents.toArray(strings);
-
-        return strings;
+        return Utils.flushToStringAray(fileContents);
 
     }
 }
