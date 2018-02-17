@@ -5,15 +5,15 @@ import java.io.*;
 /**
  * Created by max on 08.02.18.
  */
-public class Combiner extends ChainLink {
+public class JoinerTerminator extends ChainLink {
 
     private File outFile;
-    public Combiner(String outFolderName, ChainLink next) {
-        super(next);
+    public JoinerTerminator(String outFolderName) {
+        super(null);
         this.outFile = new File(outFolderName + "combined.vcf");
     }
 
-    public void process(String[] in) {
+    public String[] process(String[] in) {
 
         try (
              BufferedWriter out = new BufferedWriter(new FileWriter(outFile, true))) {
@@ -26,6 +26,7 @@ public class Combiner extends ChainLink {
             ioe.printStackTrace();
         }
 
+        return null;
     }
 
 }

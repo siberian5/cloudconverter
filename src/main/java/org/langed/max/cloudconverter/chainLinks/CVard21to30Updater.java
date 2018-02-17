@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 /**
  * Created by max on 08.02.18.
  */
-public class Updater {
+public class CVard21to30Updater {
 
     public static final String OLD_VERSION = "VERSION:2.1";
     public static final String NEW_VERSION = "VERSION:3.0";
 
     private String outFolderName;
-    public Updater(String outFolderName) {
+    public CVard21to30Updater(String outFolderName) {
         this.outFolderName = outFolderName;
     }
 
