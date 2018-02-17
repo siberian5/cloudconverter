@@ -44,13 +44,5 @@ public class Utils {
         return result;
     }
 
-//    public static void main(String[] args) {
-//        byte[] arrA = {1,2,3,4};
-//        byte[] arrB = {5,6};
-//
-//        addByteArray(arrA, arrB , 1);
-//
-//        System.out.println(arrA);
-//    }
 
 }
