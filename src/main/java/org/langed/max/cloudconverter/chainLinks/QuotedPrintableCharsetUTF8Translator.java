@@ -18,6 +18,11 @@ public class QuotedPrintableCharsetUTF8Translator extends ChainLink {
         super(next);
     }
 
+    /**
+     * В строках находит последовательности типа "=D0=94" и выполняет раскодирование
+     * @param in
+     * @return
+     */
     public String[] process(String[] in) {
 
         try {

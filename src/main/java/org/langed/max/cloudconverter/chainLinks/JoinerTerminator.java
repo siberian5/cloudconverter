@@ -7,11 +7,16 @@ import java.io.*;
  */
 public class JoinerTerminator extends ChainTerminator {
 
+    public static final String OUTFILE = "combined.vcf";
     private File outFile;
     public JoinerTerminator(String outFolderName) {
-        this.outFile = new File(outFolderName + "combined.vcf");
+        this.outFile = new File(outFolderName + OUTFILE);
     }
 
+    /**
+     * Последнее звено: пишет всё в один файл.
+     * @param in
+     */
     public void processLast(String[] in) {
 
         try (

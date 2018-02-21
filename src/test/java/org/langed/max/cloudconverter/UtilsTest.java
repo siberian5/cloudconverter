@@ -1,14 +1,38 @@
 package org.langed.max.cloudconverter;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.File;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class UtilsTest extends TestCase {
+public class UtilsTest {
 
+    private File[] fileArr = null;
+
+    @Before
+    public void setUp() throws Exception {
+
+        String userDir = System.getProperty("user.dir");
+
+        File f = new File(userDir);
+        Set<File> files = new TreeSet<>();
+        for( File file1 : f.listFiles()) {
+            if(file1.isFile()) {
+                files.add(file1);
+            }
+        }
+
+        fileArr = new File[files.size()];
+        files.toArray(fileArr);
+
+    }
+
+
+    @Test
     public void testFlushToStringAray() throws Exception {
         String[] list = {"one","two","three"};
         Queue<String> queue = new LinkedList<>();
@@ -20,8 +44,8 @@ public class UtilsTest extends TestCase {
         assertEquals(queue.size(), 0);
     }
 
+    @Test
     public void testAddByteArray() throws Exception {
-
         byte[] arrA = {1,2,3,4};
         byte[] arrB = {5,6};
         byte[] expected = {1,5,6,4};
@@ -39,11 +63,10 @@ public class UtilsTest extends TestCase {
         byte[] expected3 = {1,2,5,6};
         Utils.addByteArray(arrE, arrF , 2);
         assertArrayEquals(arrE, expected3);
-
     }
 
+    @Test
     public void testTruncate() throws Exception {
-
         byte[] arrA = {1,2,3,4};
         byte[] exp1 = {1,2,3};
         byte[] exp2 = {};
@@ -52,6 +75,20 @@ public class UtilsTest extends TestCase {
 
         byte[] res2 = Utils.truncate(arrA, 0);
         assertArrayEquals(res2, exp2);
+    }
+
+
+    @Test
+    public void testFlushToFilesArray()  throws Exception {
+
+        Queue<File> filesQueue = new LinkedList<>();
+
+        for (File file : fileArr) filesQueue.add(file);
+
+        File[] fs = Utils.flushToFilesArray(filesQueue);
+        assertArrayEquals(fileArr, fs);
+        assertEquals(filesQueue.size(), 0);
 
     }
+
 }

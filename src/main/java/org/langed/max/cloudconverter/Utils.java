@@ -1,5 +1,7 @@
 package org.langed.max.cloudconverter;
 
+import java.io.File;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -44,5 +46,13 @@ public class Utils {
         return result;
     }
 
+    static public File[] flushToFilesArray(Queue<File> queue) {
+
+        File[] result = new File[queue.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = queue.poll();
+        }
+        return result;
+    }
 
 }

@@ -19,14 +19,15 @@ public class Convert {
         System.out.println("in_folder: " + in_folder);
         System.out.println("out_folder: " + out_folder);
 
-        ChainLink chain = new SawnStringsJoiner(
+        ChainLink chain =
+                            new SawnStringsJoiner(
                                 new EncodingQuotedPrintableCharsetUTF8Filter(
                                         new QuotedPrintableCharsetUTF8Translator(
                                                 new CVard21to30Updater(
                                                         new JoinerTerminator(out_folder)
                       ))));
 
-        DirExplorer.exploreFiles(in_folder, chain);
+        VCFDirExplorer.exploreFiles(in_folder, new FileIterator(chain));
 
         System.out.println("see result in: " + out_folder);
 

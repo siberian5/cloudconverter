@@ -18,6 +18,12 @@ public class SawnStringsJoiner extends ChainLink {
 
     private final Deque<String> deque = new LinkedList<>();
 
+    /**
+     * принимает массив стрингов, возвращает массив.
+     * Строки, оканчивающиеся на "=" конкатенируются с последующими.
+     * @param in
+     * @return
+     */
     public String[] process(String[] in) {
 
         for (String line : in) {

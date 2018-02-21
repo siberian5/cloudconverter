@@ -25,6 +25,11 @@ public class CVard21to30Updater extends ChainLink {
         super(next);
     }
 
+    /**
+     * В пачке обновляет номер версии и вставляет поле "FN", если его небыло.
+     * @param in
+     * @return
+     */
     public String[] process(String[] in) {
 
             boolean fnExists = false;
